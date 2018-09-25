@@ -1,0 +1,401 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "vpc0b43325821153d106": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.99.0.0/16",
+        "InstanceTenancy": "default",
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "false",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "AimetryVPC"
+          }
+        ]
+      }
+    },
+    "subnet07b440a4838e3a523": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.99.12.0/24",
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "AppLayer2TestPrivate"
+          }
+        ]
+      }
+    },
+    "subnet0f80e4cb2457f7ced": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.99.2.0/24",
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "WebLayer2TestPublic"
+          }
+        ]
+      }
+    },
+    "subnet0fecd7886c88c1d41": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.99.21.0/24",
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "DBLayer1DevPrivate"
+          }
+        ]
+      }
+    },
+    "subnet021f25e27597e44ad": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.99.11.0/24",
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "AppLayer1DevPrivate"
+          }
+        ]
+      }
+    },
+    "subnet0d6dd210e8403f891": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.99.1.0/24",
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "WebLayer1DevPublic"
+          }
+        ]
+      }
+    },
+    "subnet0077fe9e1e078fade": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.99.22.0/24",
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "DBLayer2TestPrivate"
+          }
+        ]
+      }
+    },
+    "igw0bed55c732005832a": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "AimetryIGW"
+          }
+        ]
+      }
+    },
+    "dopt5900d721": {
+      "Type": "AWS::EC2::DHCPOptions",
+      "Properties": {
+        "DomainName": "ec2.internal",
+        "DomainNameServers": [
+          "AmazonProvidedDNS"
+        ]
+      }
+    },
+    "acl048e267c52d9c1202": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "AppLayerNACL"
+          }
+        ]
+      }
+    },
+    "acl0f6011221a326bf56": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "DBLayerNACL"
+          }
+        ]
+      }
+    },
+    "acl013ed005ed4547421": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "WebLayerNACL"
+          }
+        ]
+      }
+    },
+    "rtb0a4753cefb6985351": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "AimetryPublicRT"
+          }
+        ]
+      }
+    },
+    "rtb0d269880995a22236": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        }
+      }
+    },
+    "rtb0a9048a8f1742fe1c": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "AimetryPrivateRT"
+          }
+        ]
+      }
+    },
+    "instancei033627cf6e87879d8": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "DisableApiTermination": "false",
+        "InstanceInitiatedShutdownBehavior": "stop",
+        "ImageId": "ami-0374c1255361f6fe3",
+        "InstanceType": "t2.small",
+        "Monitoring": "false"
+      }
+    },
+    "s3cftemplatesq69xnmbs7cahuseast1": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "Private",
+        "VersioningConfiguration": {
+          "Status": "Suspended"
+        }
+      }
+    },
+    "subnetacl1": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl048e267c52d9c1202"
+        },
+        "SubnetId": {
+          "Ref": "subnet021f25e27597e44ad"
+        }
+      }
+    },
+    "subnetacl2": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl048e267c52d9c1202"
+        },
+        "SubnetId": {
+          "Ref": "subnet07b440a4838e3a523"
+        }
+      }
+    },
+    "subnetacl3": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl0f6011221a326bf56"
+        },
+        "SubnetId": {
+          "Ref": "subnet0077fe9e1e078fade"
+        }
+      }
+    },
+    "subnetacl4": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl0f6011221a326bf56"
+        },
+        "SubnetId": {
+          "Ref": "subnet0fecd7886c88c1d41"
+        }
+      }
+    },
+    "subnetacl5": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl013ed005ed4547421"
+        },
+        "SubnetId": {
+          "Ref": "subnet0f80e4cb2457f7ced"
+        }
+      }
+    },
+    "subnetacl6": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl013ed005ed4547421"
+        },
+        "SubnetId": {
+          "Ref": "subnet0d6dd210e8403f891"
+        }
+      }
+    },
+    "gw1": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "InternetGatewayId": {
+          "Ref": "igw0bed55c732005832a"
+        }
+      }
+    },
+    "subnetroute1": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb0a4753cefb6985351"
+        },
+        "SubnetId": {
+          "Ref": "subnet0f80e4cb2457f7ced"
+        }
+      }
+    },
+    "subnetroute2": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb0a4753cefb6985351"
+        },
+        "SubnetId": {
+          "Ref": "subnet0d6dd210e8403f891"
+        }
+      }
+    },
+    "subnetroute4": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb0a9048a8f1742fe1c"
+        },
+        "SubnetId": {
+          "Ref": "subnet0077fe9e1e078fade"
+        }
+      }
+    },
+    "subnetroute5": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb0a9048a8f1742fe1c"
+        },
+        "SubnetId": {
+          "Ref": "subnet0fecd7886c88c1d41"
+        }
+      }
+    },
+    "subnetroute6": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb0a9048a8f1742fe1c"
+        },
+        "SubnetId": {
+          "Ref": "subnet021f25e27597e44ad"
+        }
+      }
+    },
+    "subnetroute7": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb0a9048a8f1742fe1c"
+        },
+        "SubnetId": {
+          "Ref": "subnet07b440a4838e3a523"
+        }
+      }
+    },
+    "route1": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "rtb0a4753cefb6985351"
+        },
+        "GatewayId": {
+          "Ref": "igw0bed55c732005832a"
+        }
+      },
+      "DependsOn": "gw1"
+    },
+    "dchpassoc1": {
+      "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc0b43325821153d106"
+        },
+        "DhcpOptionsId": {
+          "Ref": "dopt5900d721"
+        }
+      }
+    }
+  },
+  "Description": "CFN Aimetry Version 1.0"
+}
